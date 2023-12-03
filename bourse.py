@@ -12,4 +12,4 @@ class Bourse:
         params = {'début': "", 'fin': date}
 
         reponse = requests.get(url=url, params=params, timeout=100)
-        donnees = json.loads(reponse.text)
+        donnees = json.loads(reponse.text) 
