@@ -1,5 +1,6 @@
 import requests
 import json
+from datetime import datetime
 
 
 class Bourse:
@@ -13,3 +14,13 @@ class Bourse:
 
         reponse = requests.get(url=url, params=params, timeout=100)
         donnees = json.loads(reponse.text)
+        
+        donnees_historiques = donnees.get("historique", {})
+        if date in donnees_historiques:
+            return donnees_historiques[date]["fermeture"]
+
+        date_actuelle = datetime.now().date()
+        if datetime.strptime(date, '%Y-%m-%d').date() > date_actuelle:
+            raise ErreurDate("Date postérieure à la date du jour.")
+        
+        dates_anterieures = [d for d in donnees_historiques if d < date]
