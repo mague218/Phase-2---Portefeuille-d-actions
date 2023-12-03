@@ -42,3 +42,23 @@ class Portefeuille:
             raise ErreurDate("La date spécifiée est postérieure à la date du jour.")
 
         return self.liquidites
+    
+    def acheter(self, symbole, quantite, date=None):
+        """accepte symbole quantité et date désirée"""
+        date = date or datetime.now().date()
+
+        if date > datetime.now().date():
+            raise ErreurDate("La date spécifiée est postérieure à la date du jour.")
+
+        prix_achat = self.bourse.obtenir_prix_historique(symbole, date.strftime('%Y-%m-%d')) * quantite
+
+        if prix_achat > self.liquidites:
+            raise LiquiditeInsuffisante("Liquidités insuffisantes pour effectuer l'achat.")
+
+        if symbole in self.actions:
+            self.actions[symbole] += quantite
+        else:
+            self.actions[symbole] = quantite
+
+        self.liquidites -= prix_achat
+        self.transactions.append({'type': 'Achat', 'symbole': symbole, 'prix_achat': prix_achat, 'solde': self.solde(), 'quantite': quantite, 'date': date})
