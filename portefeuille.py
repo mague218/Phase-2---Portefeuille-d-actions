@@ -49,6 +49,7 @@ class Portefeuille:
         self.transactions.append({'type': 'Achat', 'symbole': symbole, 'prix_achat': prix_achat, 'solde': self.solde(), 'quantite': quantite, 'date': date})
 
     def vendre(self, symbole, quantite, date=None):
+        """Méthode effectuant une vente de la quantité d'action du titre du symbole à la date spécifiée"""
         date = date or datetime.now().date()
 
         if date > datetime.now().date():
@@ -95,6 +96,7 @@ class Portefeuille:
         return {sym: quant for sym, quant in self.actions.items()}
 
     def  valeur_projetee(self, date, taux_rendement):
+        """Méthode retournant la valeur du portefeuille projetée à cette date en supposant le ou les rendements spécifiés"""    
         if date <= datetime.now().date():
             raise ErreurDate("La date future spécifiée est antérieure ou égale à la date du jour.")
     
