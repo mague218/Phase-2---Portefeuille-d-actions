@@ -67,6 +67,7 @@ class Portefeuille:
         
 
     def valeur_totale(self, date=None):
+        """Méthode retournant la valeur totale du portefeuille à cette date"""
         date = date or datetime.now().date()
 
         if date > datetime.now().date():
