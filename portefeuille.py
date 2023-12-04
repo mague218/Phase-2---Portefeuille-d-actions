@@ -1,3 +1,4 @@
+from exceptions import ErreurDate, ErreurQuantité, LiquiditéInsuffisante
 from datetime import datetime
 
 
@@ -38,7 +39,7 @@ class Portefeuille:
         prix_achat = self.bourse.obtenir_prix_historique(symbole, date.strftime('%Y-%m-%d')) * quantite
 
         if prix_achat > self.liquidites:
-            raise LiquiditeInsuffisante("Liquidités insuffisantes pour effectuer l'achat.")
+            raise LiquiditéInsuffisante("Liquidités insuffisantes pour effectuer l'achat.")
 
         if symbole in self.actions:
             self.actions[symbole] += quantite
@@ -55,7 +56,7 @@ class Portefeuille:
         if date > datetime.now().date():
             raise ErreurDate("La date spécifiée est postérieure à la date du jour.")
         if symbole not in self.actions or self.actions[symbole] < quantite:
-            raise ErreurQuantite("Quantité insuffisante d'actions à vendre.")
+            raise ErreurQuantité("Quantité insuffisante d'actions à vendre.")
         
         prix_vente = self.bourse.obtenir_prix_historique(symbole.date.strftime('%Y-%m-%d'))
 
