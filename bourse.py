@@ -13,7 +13,6 @@ class Bourse:
         url = f'https://pax.ulaval.ca/action/{symbole}/historique/'
 
         params = {'début': "", 'fin': date}
-
         reponse = requests.get(url=url, params=params, timeout=100)
         donnees = json.loads(reponse.text) 
         donnees_historiques = donnees.get("historique", {})

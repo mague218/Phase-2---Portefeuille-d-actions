@@ -61,18 +61,15 @@ class Portefeuille:
         self.liquidites += prix_vente
         self.transactions.append({'type': 'Vente', 'symbole': symbole, 'prix_vente': prix_vente, 'solde': self.solde(), 'quantite': quantite, 'date': date})
         print(self.transactions)
-        
     def valeur_totale(self, date=None):
         """Méthode retournant la valeur totale du portefeuille à cette date"""
         date = date or datetime.now().date()
 
         if date > datetime.now().date():
             raise ErreurDate("La date spécifiée est postérieure à la date du jour.")
-        
         valeur_liquidites = self.liquidites
         valeur_actions = sum(self.bourse.obtenir_prix_historique(sym, date.strftime('%Y-%m-%d')) * quant for sym, quant in self.actions.items())
         return valeur_liquidites + valeur_actions
-    
     def valeur_actions(self, symboles, date=None):
         """Méthode retournant pour la date spécifiée la valeur totale des titres spécifiés"""
         date = date or datetime.now().date()
@@ -80,7 +77,6 @@ class Portefeuille:
             raise ErreurDate("La date spécifiée est postérieure à la date du jour.")
         
         valeur_actions = sum(self.bourse.obtenir_prix_historique(sym, date.strftime("%Y-%m-%d")) * quant for sym, quant in self.actions.items() if sym in symboles)
-
         return valeur_actions
     def actions_detenues(self, date=None):
         """Méthode retournant les actions détenues à la date spécifiée"""
@@ -95,7 +91,6 @@ class Portefeuille:
         """Méthode retournant la valeur du portefeuille projetée à cette date en supposant le ou les rendements spécifiés"""    
         if date <= datetime.now().date():
             raise ErreurDate("La date future spécifiée est antérieure ou égale à la date du jour.")
-    
         valeur_projetee = self.liquidites
         for sym, quant in self.actions.items():
             taux_rendement_titre = taux_rendement if isinstance(taux_rendement, (int, float)) else taux_rendement.get(sym, 0)
