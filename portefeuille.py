@@ -1,5 +1,5 @@
-from exceptions import ErreurDate, ErreurQuantité, LiquiditéInsuffisante
 from datetime import datetime
+from exceptions import ErreurDate, ErreurQuantité, LiquiditéInsuffisante
 
 
 class Portefeuille:
@@ -55,16 +55,13 @@ class Portefeuille:
             raise ErreurDate("La date spécifiée est postérieure à la date du jour.")
         if symbole not in self.actions or self.actions[symbole] < quantite:
             raise ErreurQuantité("Quantité insuffisante d'actions à vendre.")
-        
         prix_vente = self.bourse.obtenir_prix_historique(symbole.date.strftime('%Y-%m-%d'))
 
-        
         self.actions[symbole] -= quantite
         self.liquidites += prix_vente
         self.transactions.append({'type': 'Vente', 'symbole': symbole, 'prix_vente': prix_vente, 'solde': self.solde(), 'quantite': quantite, 'date': date})
         print(self.transactions)
         
-
     def valeur_totale(self, date=None):
         """Méthode retournant la valeur totale du portefeuille à cette date"""
         date = date or datetime.now().date()
@@ -74,20 +71,17 @@ class Portefeuille:
         
         valeur_liquidites = self.liquidites
         valeur_actions = sum(self.bourse.obtenir_prix_historique(sym, date.strftime('%Y-%m-%d')) * quant for sym, quant in self.actions.items())
-
         return valeur_liquidites + valeur_actions
     
     def valeur_actions(self, symboles, date=None):
         """Méthode retournant pour la date spécifiée la valeur totale des titres spécifiés"""
         date = date or datetime.now().date()
-
         if date > datetime.now().date():
             raise ErreurDate("La date spécifiée est postérieure à la date du jour.")
         
         valeur_actions = sum(self.bourse.obtenir_prix_historique(sym, date.strftime("%Y-%m-%d")) * quant for sym, quant in self.actions.items() if sym in symboles)
 
         return valeur_actions
-    
     def actions_detenues(self, date=None):
         """Méthode retournant les actions détenues à la date spécifiée"""
         date = date or datetime.now().date()

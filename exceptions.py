@@ -15,3 +15,4 @@ class LiquiditéInsuffisante(RuntimeError):
         """Exception levée pour des erreurs liées à la liquidité."""
         self.message = message
         super().__init__(self.message)
+        
