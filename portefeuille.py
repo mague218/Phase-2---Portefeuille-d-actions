@@ -47,3 +47,22 @@ class Portefeuille:
 
         self.liquidites -= prix_achat
         self.transactions.append({'type': 'Achat', 'symbole': symbole, 'prix_achat': prix_achat, 'solde': self.solde(), 'quantite': quantite, 'date': date})
+
+    def vendre(self, symbole, quantite, date=None):
+        date = date or datetime.now().date()
+
+        if date > datetime.now().date():
+            raise ErreurDate("La date spécifiée est postérieure à la date du jour.")
+        if symbole not in self.actions or self.actions[symbole] < quantite:
+            raise ErreurQuantite("Quantité insuffisante d'actions à vendre.")
+        
+        prix_vente = self.bourse.obtenir_prix_historique(symbole.date.strftime('%Y-%m-%d'))
+
+        
+        self.actions[symbole] -= quantite
+        self.liquidites += prix_vente
+        self.transactions.append({'type': 'Vente', 'symbole': symbole, 'prix_vente': prix_vente, 'solde': self.solde(), 'quantite': quantite, 'date': date})
+        print(self.transactions)
+        
+
+    
