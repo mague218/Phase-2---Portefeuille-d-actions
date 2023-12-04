@@ -94,4 +94,14 @@ class Portefeuille:
 
         return {sym: quant for sym, quant in self.actions.items()}
 
+    def  valeur_projetee(self, date, taux_rendement):
+        if date <= datetime.now().date():
+            raise ErreurDate("La date future spécifiée est antérieure ou égale à la date du jour.")
     
+        valeur_projetee = self.liquidites
+        for sym, quant in self.actions.items():
+            taux_rendement_titre = taux_rendement if isinstance(taux_rendement, (int, float)) else taux_rendement.get(sym, 0)
+            prix_titre = self.bourse.obtenir_prix_historique(sym, date.strftime('%Y-%m-%d'))
+            valeur_projetee += quant * prix_titre * (1 + taux_rendement_titre / 100)
+
+        return valeur_projetee
