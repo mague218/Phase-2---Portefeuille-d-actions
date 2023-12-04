@@ -97,7 +97,7 @@ class Portefeuille:
         if date > datetime.now().date():
             raise ErreurDate("La date spécifiée est postérieure à la date du jour.")
 
-        return {sym: quant for sym, quant in self.actions.items()}
+        return dict(self.actions)
 
     def  valeur_projetee(self, date, taux_rendement):
         """Valeur portefeuille projetée à la date en supposant le ou les rendements spécifiés"""
