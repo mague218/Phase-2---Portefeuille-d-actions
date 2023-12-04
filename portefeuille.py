@@ -65,4 +65,25 @@ class Portefeuille:
         print(self.transactions)
         
 
+    def valeur_totale(self, date=None):
+        date = date or datetime.now().date()
+
+        if date > datetime.now().date():
+            raise ErreurDate("La date spécifiée est postérieure à la date du jour.")
+        
+        valeur_liquidites = self.liquidites
+        valeur_actions = sum(self.bourse.obtenir_prix_historique(sym, date.strftime('%Y-%m-%d')) * quant for sym, quant in self.actions.items())
+
+        return valeur_liquidites + valeur_actions
+    
+    def valeur_actions(self, symboles, date=None):
+        date = date or datetime.now().date()
+
+        if date > datetime.now().date():
+            raise ErreurDate("La date spécifiée est postérieure à la date du jour.")
+        
+        valeur_actions = sum(self.bourse.obtenir_prix_historique(sym, date.strftime('%Y-%m-%d')) * quant for sym, quant in self.actions.items() if sym in symboles)
+
+        return valeur_actions
+
     
