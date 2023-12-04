@@ -5,8 +5,8 @@ from datetime import datetime, timedelta
 
 
 class Bourse:
-    def __init__(self):
-        pass
+    def __init__(self, source_donnees='https://pax.ulaval.ca'):
+        self.source_donnees = source_donnees
 
     def obtenir_prix_historique(self, symbole, date):
         url = f'https://pax.ulaval.ca/action/{symbole}/historique/'
