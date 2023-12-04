@@ -1,8 +1,10 @@
+"""Module pour définir un portefeuille d'action"""
 from datetime import datetime
 from exceptions import ErreurDate, ErreurQuantité, LiquiditéInsuffisante
 
 
 class Portefeuille:
+    """Classe pour encapsuler les actions du portefeuille"""
     def __init__(self, bourse):
         """méthode d'initialisation"""
         self.bourse = bourse

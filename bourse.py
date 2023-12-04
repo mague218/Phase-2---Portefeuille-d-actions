@@ -1,3 +1,4 @@
+"""Module pour définir un programme d'extraction de prix"""
 from datetime import datetime
 import json
 import requests
@@ -5,6 +6,7 @@ from exceptions import ErreurDate
 
 
 class Bourse:
+    """Classe pour encapsuler le programme d'extraction de prix"""
     def __init__(self, source_donnees='https://pax.ulaval.ca'):
         self.source_donnees = source_donnees
 
