@@ -75,7 +75,6 @@ class Portefeuille:
         date = date or datetime.now().date()
         if date > datetime.now().date():
             raise ErreurDate("La date spécifiée est postérieure à la date du jour.")
-        
         valeur_actions = sum(self.bourse.obtenir_prix_historique(sym, date.strftime("%Y-%m-%d")) * quant for sym, quant in self.actions.items() if sym in symboles)
         return valeur_actions
     def actions_detenues(self, date=None):

@@ -14,7 +14,7 @@ class Bourse:
 
         params = {'début': "", 'fin': date}
         reponse = requests.get(url=url, params=params, timeout=100)
-        donnees = json.loads(reponse.text) 
+        donnees = json.loads(reponse.text)
         donnees_historiques = donnees.get("historique", {})
         if date in donnees_historiques:
             return donnees_historiques[date]["fermeture"]
