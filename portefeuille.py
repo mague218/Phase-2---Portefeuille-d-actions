@@ -19,7 +19,6 @@ class Portefeuille:
 
         self.liquidites += montant
         self.transactions.append({'type': 'Dépôt', 'montant': montant, 'date': date})
-    
     def solde(self, date=None):
         """méthode acceptant une date d'évaluation"""
         date = date or datetime.now().date()
@@ -28,7 +27,6 @@ class Portefeuille:
             raise ErreurDate("La date spécifiée est postérieure à la date du jour.")
 
         return self.liquidites
-    
     def acheter(self, symbole, quantite, date=None):
         """méthode effectuant l'achat de la quantité d'actions du titre symbole à la date spécifiée"""
         date = date or datetime.now().date()
