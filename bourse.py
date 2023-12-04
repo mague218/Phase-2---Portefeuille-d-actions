@@ -9,6 +9,7 @@ class Bourse:
         self.source_donnees = source_donnees
 
     def obtenir_prix_historique(self, symbole, date):
+        """Obtient le prix historique d'une action à une date spécifique"""
         url = f'https://pax.ulaval.ca/action/{symbole}/historique/'
 
         params = {'début': "", 'fin': date}
