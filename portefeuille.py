@@ -30,13 +30,14 @@ class Portefeuille:
 
         return self.liquidites
     def acheter(self, symbole, quantite, date=None):
-        """méthode effectuant l'achat de la quantité d'actions du titre symbole à la date spécifiée"""
+        """Effectuer l'achat de la quantité d'actions du titre symbole à la date spécifiée"""
         date = date or datetime.now().date()
 
         if date > datetime.now().date():
             raise ErreurDate("La date spécifiée est postérieure à la date du jour.")
 
-        prix_achat = self.bourse.obtenir_prix_historique(symbole, date.strftime('%Y-%m-%d')) * quantite
+        K = symbole, date.strftime('%Y-%m-%d')
+        prix_achat = self.bourse.obtenir_prix_historique(K) * quantite
 
         if prix_achat > self.liquidites:
             raise LiquiditéInsuffisante("Liquidités insuffisantes pour effectuer l'achat.")
@@ -47,10 +48,15 @@ class Portefeuille:
             self.actions[symbole] = quantite
 
         self.liquidites -= prix_achat
-        self.transactions.append({'type': 'Achat', 'symbole': symbole, 'prix_achat': prix_achat, 'solde': self.solde(), 'quantite': quantite, 'date': date})
+        self.transactions.append({'type': 'Achat',
+                                  'symbole': symbole,
+                                  'prix_achat': prix_achat,
+                                  'solde': self.solde(),
+                                  'quantite': quantite,
+                                  'date': date})
 
     def vendre(self, symbole, quantite, date=None):
-        """méthode effectuant une vente de la quantité d'action du titre du symbole à la date spécifiée"""
+        """Effectuer une vente de la quantité d'action du titre du symbole à la date spécifiée"""
         date = date or datetime.now().date()
 
         if date > datetime.now().date():
@@ -61,7 +67,12 @@ class Portefeuille:
 
         self.actions[symbole] -= quantite
         self.liquidites += prix_vente
-        self.transactions.append({'type': 'Vente', 'symbole': symbole, 'prix_vente': prix_vente, 'solde': self.solde(), 'quantite': quantite, 'date': date})
+        self.transactions.append({'type': 'Vente',
+                                  'symbole': symbole,
+                                  'prix_vente': prix_vente,
+                                  'solde': self.solde(),
+                                  'quantite': quantite,
+                                  'date': date})
         print(self.transactions)
     def valeur_totale(self, date=None):
         """Méthode retournant la valeur totale du portefeuille à cette date"""
