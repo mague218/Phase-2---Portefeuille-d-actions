@@ -28,7 +28,6 @@ class Bourse:
         dates_anterieures = [d for d in donnees_historiques if d < date]
         if not dates_anterieures:
             raise ValueError("Aucune date antérieure à la date spécifiée trouvée.")
-        else:
-            date_precedente_recente = max(dates_anterieures)
-            return donnees_historiques[date_precedente_recente]["fermeture"]
+        date_precedente_recente = max(dates_anterieures)
+        return donnees_historiques[date_precedente_recente]["fermeture"]
         
