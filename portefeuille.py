@@ -79,6 +79,7 @@ class Portefeuille:
         return valeur_liquidites + valeur_actions
     
     def valeur_actions(self, symboles, date=None):
+        """Méthode retournant pour la date spécifiée la valeur totale des titres spécifiés"""
         date = date or datetime.now().date()
 
         if date > datetime.now().date():
@@ -89,6 +90,7 @@ class Portefeuille:
         return valeur_actions
     
     def actions_detenues(self, date=None):
+        """Méthode retournant les actions détenues à la date spécifiée"""
         date = date or datetime.now().date()
 
         if date > datetime.now().date():
