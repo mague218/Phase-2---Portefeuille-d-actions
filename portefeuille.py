@@ -3,7 +3,7 @@ from datetime import datetime
 
 class Portefeuille:
     def __init__(self, bourse):
-        """méthode d'innitialisation"""
+        """méthode d'initialisation"""
         self.bourse = bourse
         self.liquidites = 0
         self.actions = {}
@@ -29,7 +29,7 @@ class Portefeuille:
         return self.liquidites
     
     def acheter(self, symbole, quantite, date=None):
-        """accepte symbole quantite et une date désirée"""
+        """méthode effectuant l'achat de la quantité d'actions du titre symbole à la date spécifiée"""
         date = date or datetime.now().date()
 
         if date > datetime.now().date():
@@ -49,7 +49,7 @@ class Portefeuille:
         self.transactions.append({'type': 'Achat', 'symbole': symbole, 'prix_achat': prix_achat, 'solde': self.solde(), 'quantite': quantite, 'date': date})
 
     def vendre(self, symbole, quantite, date=None):
-        """Méthode effectuant une vente de la quantité d'action du titre du symbole à la date spécifiée"""
+        """méthode effectuant une vente de la quantité d'action du titre du symbole à la date spécifiée"""
         date = date or datetime.now().date()
 
         if date > datetime.now().date():
