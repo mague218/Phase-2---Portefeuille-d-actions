@@ -36,8 +36,8 @@ class Portefeuille:
         if date > datetime.now().date():
             raise ErreurDate("La date spécifiée est postérieure à la date du jour.")
 
-        K = symbole, date.strftime('%Y-%m-%d')
-        prix_achat = self.bourse.obtenir_prix_historique(K) * quantite
+        k = symbole, date.strftime('%Y-%m-%d')
+        prix_achat = self.bourse.obtenir_prix_historique(k) * quantite
 
         if prix_achat > self.liquidites:
             raise LiquiditéInsuffisante("Liquidités insuffisantes pour effectuer l'achat.")
@@ -100,7 +100,7 @@ class Portefeuille:
         return {sym: quant for sym, quant in self.actions.items()}
 
     def  valeur_projetee(self, date, taux_rendement):
-        """Méthode retournant la valeur du portefeuille projetée à cette date en supposant le ou les rendements spécifiés"""    
+        """Valeur portefeuille projetée à la date en supposant le ou les rendements spécifiés"""
         if date <= datetime.now().date():
             raise ErreurDate("La date future spécifiée est antérieure ou égale à la date du jour.")
         valeur_projetee = self.liquidites
